@@ -1,0 +1,34 @@
+﻿@model EntityFramework.ViewModels.ProductUpSertViewModels
+
+@{
+    ViewBag.Title = "Create Product";
+    Layout = "_Layout";
+    var tittle = Model.Product.ProductId == 0 ? "Create Product" : "Edit Product";
+}
+
+<h2>@tittle</h2>
+
+<form method="post">
+    <input asp-for="Product.ProductId" hidden>
+    <div class="form-group">
+        <label asp-for="Product.Name"></label>
+        <input asp-for="Product.Name" class="form-control"/>
+        <span asp-validation-for="Product.Name" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="Product.Description"></label>
+        <input asp-for="Product.Description" class="form-control"/>
+        <span asp-validation-for="Product.Description" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="Product.CategoryId"></label>
+        @Html.DropDownListFor(m => m.Product.CategoryId, Model.CategoryList, "-Select Category", new{@class = "form-control"})
+        @* Model.CategoryList là phần category list xổ xuống và sau khi user chọn một cái category thì sẽ gửi về hệ thống *@
+        @* một cái Id của category đó (là ở phần m.Product.CategoryId) *@
+        <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
